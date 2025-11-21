@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Диски38 - Диски и шины в Иркутске</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B35;
+            --secondary: #00A8E8;
+            --accent: #FFD166;
+            --dark: #2D3047;
+            --light: #F8F9FA;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 100px 0;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            border: none;
+            padding: 12px 30px;
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+            border: none;
+            padding: 12px 30px;
+        }
+        
+        .category-card {
+            transition: transform 0.3s;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .ad-card {
+            border: none;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        .ad-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .nav-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--primary) !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand nav-brand" href="#">
+                <i class="fas fa-tire"></i> Диски38
+            </a>
+            
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="#" onclick="showSection('catalog')">Каталог</a>
+                <a class="nav-link" href="#" onclick="showSection('selection')">Подбор</a>
+                <button class="btn btn-primary ms-2" onclick="showAdForm()">
+                    <i class="fas fa-plus"></i> Подать объявление
+                </button>
+                <button class="btn btn-outline-secondary ms-2" onclick="showLogin()">
+                    <i class="fas fa-user"></i> Войти
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Герой секция -->
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-4">Диски и шины в Иркутске</h1>
+            <p class="lead mb-4">Купите или продайте диски, шины и автозапчасти в Иркутске и области</p>
+            
+            <!-- Быстрый поиск -->
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control form-control-lg" placeholder="Например: диски R17 5x114.3">
+                        <button class="btn btn-warning btn-lg" type="button">
+                            <i class="fas fa-search"></i> Найти
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подбор по авто -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Подбор дисков и шин по авто</h2>
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <select class="form-select" id="carBrand">
+                        <option>Марка авто</option>
+                        <option>Toyota</option>
+                        <option>Honda</option>
+                        <option>Nissan</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select" id="carModel">
+                        <option>Модель</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select" id="carYear">
+                        <option>Год</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary w-100" onclick="findCompatibleWheels()">
+                        <i class="fas fa-cogs"></i> Подобрать
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Категории -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Категории товаров</h2>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card category-card text-center p-4">
+                        <i class="fas fa-compact-disc fa-3x text-primary mb-3"></i>
+                        <h5>Литые диски</h5>
+                        <p class="text-muted">R14-R22 все PCD</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card category-card text-center p-4">
+                        <i class="fas fa-cog fa-3x text-primary mb-3"></i>
+                        <h5>Кованые диски</h5>
+                        <p class="text-muted">Премиум качество</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card category-card text-center p-4">
+                        <i class="fas fa-tire fa-3x text-primary mb-3"></i>
+                        <h5>Шины</h5>
+                        <p class="text-muted">Летние/зимние</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card category-card text-center p-4">
+                        <i class="fas fa-tools fa-3x text-primary mb-3"></i>
+                        <h5>Запчасти</h5>
+                        <p class="text-muted">Оригинал и аналоги</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Свежие объявления -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Свежие объявления</h2>
+            <div class="row g-4" id="adsContainer">
+                <!-- Объявления будут здесь -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p>&copy; 2024 Диски38 - Диски и шины в Иркутске. 38 регион</p>
+        </div>
+    </footer>
+
+    <!-- Модальные окна -->
+    <div class="modal fade" id="loginModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Вход в аккаунт</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label class="form-label">Email или телефон</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Пароль</label>
+                            <input type="password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Войти</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // База данных объявлений
+        const ads = [
+            {
+                id: 1,
+                title: "Литые диски R18 5x114.3",
+                price: "15 000 ₽",
+                location: "Иркутск, Свердловский район",
+                date: "Сегодня",
+                image: "🛞",
+                category: "disks"
+            },
+            {
+                id: 2, 
+                title: "Зимние шины 205/55 R16",
+                price: "8 000 ₽",
+                location: "Иркутск, Правобережный район",
+                date: "Вчера",
+                image: "🚗",
+                category: "tires"
+            }
+        ];
+
+        // Функции
+        function showAdForm() {
+            alert('📝 Форма подачи объявления откроется здесь!\n\nРазместите ваши диски или шины');
+        }
+
+        function showLogin() {
+            const modal = new bootstrap.Modal(document.getElementById('loginModal'));
+            modal.show();
+        }
+
+        function findCompatibleWheels() {
+            const brand = document.getElementById('carBrand').value;
+            alert(🔧 Подбираем диски для: ${brand}\n\nСовместимые размеры:\n- R16 5x114.3\n- R17 5x114.3\n- R18 5x114.3);
+        }
+
+        function loadAds() {
+            const container = document.getElementById('adsContainer');
+            container.innerHTML = ads.map(ad => `
+                <div class="col-md-6 col-lg-3">
+                    <div class="card ad-card h-100">
+                        <div class="card-body text-center">
+                            <div class="fs-1 mb-3">${ad.image}</div>
+                            <h5 class="card-title">${ad.title}</h5>
+                            <p class="text-primary fw-bold fs-4">${ad.price}</p>
+                            <p class="text-muted">${ad.location}</p>
+                            <small class="text-muted">${ad.date}</small>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <button class="btn btn-primary btn-sm w-100" onclick="showAdDetails(${ad.id})">
+                                <i class="fas fa-eye"></i> Посмотреть
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showAdDetails(adId) {
+            const ad = ads.find(a => a.id === adId);
+            alert(📋 ${ad.title}\n💵 ${ad.price}\n📍 ${ad.location}\n\n📞 Контакты: скоро здесь будут реальные контакты продавцов);
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAds();
+            console.log('🚗 Диски38 загружен!');
+        });
+
+        // Обработка формы входа
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('✅ Вход выполнен! Личный кабинет в разработке.');
+            const modal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+            modal.hide();
+        });
+    </script>
+</body>
+</html>
